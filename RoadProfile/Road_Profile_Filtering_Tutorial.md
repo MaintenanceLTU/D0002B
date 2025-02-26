@@ -16,7 +16,7 @@ This tutorial guides students through the process of filtering road profile data
 The road profile data is stored in a CSV file. We first need to load and visualize it.
 
 ```matlab
-% Define the file path
+% Define the file path (you will need to modify path to where you file is located)
 p = 'C:\Users\YourUsername\';
 filename = fullfile(p, 'ProfileData.csv');
 
@@ -38,7 +38,7 @@ grid on;
 ---
 
 ### **Step 2: Design a Butterworth Filter**
-To remove unwanted frequency components, we apply **high-pass** and **low-pass** filters.
+To extract wavelength of interest, we apply **high-pass** and **low-pass** filters.
 
 ```matlab
 % Define cutoff frequencies
@@ -62,7 +62,7 @@ mpdProfile = filtfilt(Bl, Al, filtfilt(Bh, Ah, ProfileData.Profile_mm));
 
 % Plot filtered data for segment (100 mm)
 figure;
-i_segment = ProfileData.Distance_m >= 0 & ProfileData.Distance_m < 100e-3)
+i_segment = ProfileData.Distance_m >= 0 & ProfileData.Distance_m < 100e-3
 plot(ProfileData.Distance_m(i_segment), mpdProfile(i_segment));
 xlabel('Distance (m)');
 ylabel('Filtered Profile (mm)');
@@ -86,7 +86,7 @@ disp(['MPS Value: ', num2str(mps)]);
 ---
 
 ### **Step 5: Compute RMS for Mega Texture**
-We use a **band-pass filter** between 50 mm and 500 mm.
+We use a **band-pass filter** between relevant wavelengths (50 mm and 500 mm).
 
 ```matlab
 limitMegaHigh = _____; %Wavelength (m)
@@ -113,9 +113,10 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import scipy.signal as signal
+import os
 
-# Load CSV data
-p = r'C:\Users\YourUsername\ProfileData.csv'
+# Load CSV data (you will need to modify path to where you file is located)
+p = os.path.join('C:\Users\YourUsername', 'ProfileData.csv')
 ProfileData = pd.read_csv(p)
 
 # Extract distance and profile
@@ -138,13 +139,13 @@ plt.show()
 ### **Step 2: Design a Butterworth Filter**
 
 ```python
-limit_high = 174.2e-3
-limit_low = 2.4e-3
-f_high = 1 / limit_high
-f_low = 1 / limit_low
+limit_macro_high = _____ #Wavelength (m)
+limit_macro_low = _____ #Wavelength (m)
+f_high = 1 / limit_macro_high
+f_low = 1 / limit_macro_low
 
-Bh, Ah = signal.butter(2, f_high * (2 * dx), btype='high', analog=False)
-Bl, Al = signal.butter(2, f_low * (2 * dx), btype='low', analog=False)
+Bh, Ah = signal.butter(2, f_high * (2 * dx), btype='high')
+Bl, Al = signal.butter(2, f_low * (2 * dx), btype='low')
 ```
 
 ---
@@ -154,13 +155,15 @@ Bl, Al = signal.butter(2, f_low * (2 * dx), btype='low', analog=False)
 ```python
 mpd_profile = signal.filtfilt(Bl, Al, signal.filtfilt(Bh, Ah, profile))
 
+i_segment = (distance >= 0) & (distance < 100e-3)
 plt.figure()
-plt.plot(distance, mpd_profile)
+plt.plot(distance[i_segment], profile[i_segment])
 plt.xlabel('Distance (m)')
-plt.ylabel('Filtered Profile (mm)')
+plt.ylabel('Profile (mm)')
 plt.title('Filtered Road Profile (Macrotexture)')
 plt.grid()
 plt.show()
+
 ```
 
 ---
@@ -168,20 +171,22 @@ plt.show()
 ### **Step 4: Compute MPS**
 
 ```python
-m1 = np.max(mpd_profile[(distance >= 0) & (distance < 50e-3)])
-m2 = np.max(mpd_profile[(distance >= 50e-3) & (distance < 100e-3)])
-mps = (m1 + m2) / 2
+i_segment_1 = (distance >= 0) & (distance < 50e-3)
+i_segment_2 = (distance >= 50e-3) & (distance < 100e-3)
+max_1 = np.max(mpd_profile[i_segment_1])
+max_2 = np.max(mpd_profile[i_segment_2])
+mps = (max_1 + max_2) / 2
 print(f"MPS Value: {mps}")
 ```
 
 ---
 
 ### **Step 5: Compute RMS for Mega Texture**
-
+We use a band-pass filter between 50 mm and 500 mm.
 ```python
-limit_mega = [500e-3, 50e-3]
-f_mega = [1 / limit_mega[1], 1 / limit_mega[0]]
-
+limit_mega_high = _____
+limit_mega_low = _____
+f_mega = [1 / limit_mega_high, 1 / limit_mega_low]
 B, A = signal.butter(3, np.array(f_mega) * (2 * dx), btype='bandpass')
 mega_profile = signal.filtfilt(B, A, profile)
 
@@ -191,10 +196,4 @@ print(f"RMS of Mega Texture: {rms_mega}")
 
 ---
 
-## **Conclusion**
-This tutorial covered:
-✅ **Loading data**  
-✅ **Filtering with Butterworth filters**  
-✅ **Computing MPS & RMS**  
 
-Students should now be able to **implement their own filters** and analyze road profile data. 🚀
