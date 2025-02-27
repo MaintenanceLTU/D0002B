@@ -5,7 +5,7 @@ This tutorial guides students through the process of filtering road profile data
 
 - **Reading road profile data** from a CSV file.
 - **Designing and applying Butterworth filters** to extract  wavelength of interest.
-- **Computing Maximum Profile Slope (MPS)** for macrotexture.
+- **Computing Mean Segment Depth (MSD)** for macrotexture.
 - **Computing Root Mean Square (RMS)** for megatexture.
 
 ---
@@ -75,7 +75,7 @@ grid on;
 
 ---
 
-### **Step 4: Compute MPS (Max Profile Slope)**
+### **Step 4: Compute MSD (Mean Segment Depth)**
 
 ```matlab
 % Extracting maximum profile slope (MPS) from two consecutive 50mm segments
@@ -83,8 +83,8 @@ i_segment_1 = ProfileData.Distance_m >= 0 & ProfileData.Distance_m < 50e-3
 i_segment_2 = ProfileData.Distance_m >= 50e-3 & ProfileData.Distance_m < 100e-3
 max_1 = max(mpdProfile(i_segment_1));
 max_2 = max(mpdProfile(i_segment_2));
-mps = (max_1 + max_2) / 2;
-disp(['MPS Value: ', num2str(mps)]);
+msd = (max_1 + max_2) / 2;
+disp(['MSD Value: ', num2str(msd)]);
 ```
 
 ---
@@ -100,7 +100,7 @@ fMega = 1 ./ limitMega;
 [B, A] = butter(3, fMega * (2 * dx), 'bandpass');
 megaProfile = filtfilt(B, A, ProfileData.Profile_mm);
 
-# Compute rms value
+% Compute rms value
 i_segment_1m = ProfileData.Distance_m >= 0 & ProfileData.Distance_m < 1
 rms_mega = rms(megaProfile(i_segment_1m));
 disp(['RMS of Mega Texture: ', num2str(rms_mega)]);
@@ -176,16 +176,16 @@ plt.show()
 
 ---
 
-### **Step 4: Compute MPS**
+### **Step 4: Compute MSD**
 
 ```python
 i_segment_1 = (distance >= 0) & (distance < 50e-3)
 i_segment_2 = (distance >= 50e-3) & (distance < 100e-3)
-# Extracting max profile slope (MPS) from two consecutive 50mm segments
+# Extracting mean segment depth (msd) from two consecutive 50mm segments
 max_1 = np.max(mpd_profile[i_segment_1])
 max_2 = np.max(mpd_profile[i_segment_2])
-mps = (max_1 + max_2) / 2
-print(f"MPS Value: {mps}")
+msd = (max_1 + max_2) / 2
+print(f"msd Value: {msd}")
 ```
 
 ---
