@@ -25,6 +25,8 @@ ProfileData = readtable(filename);
 
 % Extract sampling interval (assuming uniform spacing)
 dx = ProfileData.Distance_m(2); 
+% dx represents the sampling interval, assuming uniform spacing in data
+dx = ProfileData.Distance_m(2); 
 
 % Plot raw profile data
 figure;
@@ -42,7 +44,9 @@ To extract wavelength of interest, we apply **high-pass** and **low-pass** filte
 
 ```matlab
 % Define cutoff frequencies
+% High-pass removes wavelengths longer than the defined limit
 limitMacroHigh = **<ENTER_HIGH_PASS_WAVELENGTH_HERE>**; % High-pass cutoff, wavelength (m)
+% Low-pass removes wavelengths shorter than the defined limit
 limitMacroLow = **<ENTER_LOW_PASS_WAVELENGTH_HERE>**; % Low-pass cutoff, wavelength (m)
 fHigh = 1 / limitMacroHigh;
 fLow = 1 / limitMacroLow;
@@ -58,6 +62,7 @@ fLow = 1 / limitMacroLow;
 Using `filtfilt()`, we apply **zero-phase filtering** to the profile data.
 
 ```matlab
+% Applying high-pass followed by low-pass filtering to extract macrotexture
 mpdProfile = filtfilt(Bl, Al, filtfilt(Bh, Ah, ProfileData.Profile_mm));
 
 % Plot filtered data for segment (100 mm)
@@ -75,6 +80,7 @@ grid on;
 ### **Step 4: Compute MPS (Max Profile Slope)**
 
 ```matlab
+% Extracting maximum profile slope (MPS) from two consecutive 50mm segments
 i_segment_1 = ProfileData.Distance_m >= 0 & ProfileData.Distance_m < 50e-3
 i_segment_2 = ProfileData.Distance_m >= 50e-3 & ProfileData.Distance_m < 100e-3
 max_1 = max(mpdProfile(i_segment_1));
@@ -122,6 +128,7 @@ ProfileData = pd.read_csv(p)
 # Extract distance and profile
 distance = ProfileData['Distance_m']
 profile = ProfileData['Profile_mm']
+# dx represents the sampling interval, assuming uniform spacing in data
 dx = distance.iloc[1]
 
 # Plot raw profile
@@ -139,7 +146,9 @@ plt.show()
 ### **Step 2: Design a Butterworth Filter**
 
 ```python
+# High-pass removes wavelengths longer than this limit
 limit_macro_high = _____ #Wavelength (m)
+# Low-pass removes wavelengths shorter than this limit
 limit_macro_low = _____ #Wavelength (m)
 f_high = 1 / limit_macro_high
 f_low = 1 / limit_macro_low
@@ -153,6 +162,7 @@ Bl, Al = signal.butter(2, f_low * (2 * dx), btype='low')
 ### **Step 3: Apply the Filter**
 
 ```python
+# Applying high-pass followed by low-pass filtering to extract macrotexture
 mpd_profile = signal.filtfilt(Bl, Al, signal.filtfilt(Bh, Ah, profile))
 
 i_segment = (distance >= 0) & (distance < 100e-3)
@@ -173,6 +183,7 @@ plt.show()
 ```python
 i_segment_1 = (distance >= 0) & (distance < 50e-3)
 i_segment_2 = (distance >= 50e-3) & (distance < 100e-3)
+# Extracting max profile slope (MPS) from two consecutive 50mm segments
 max_1 = np.max(mpd_profile[i_segment_1])
 max_2 = np.max(mpd_profile[i_segment_2])
 mps = (max_1 + max_2) / 2
@@ -184,6 +195,7 @@ print(f"MPS Value: {mps}")
 ### **Step 5: Compute RMS for Mega Texture**
 We use a band-pass filter between 50 mm and 500 mm.
 ```python
+# Define wavelength limits for megatexture filtering (e.g., 50mm to 500mm)
 limit_mega_high = _____
 limit_mega_low = _____
 f_mega = [1 / limit_mega_high, 1 / limit_mega_low]
