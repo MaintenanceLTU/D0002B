@@ -83,8 +83,8 @@ i_segment_1 = ProfileData.Distance_m >= 0 & ProfileData.Distance_m < 50e-3
 i_segment_2 = ProfileData.Distance_m >= 50e-3 & ProfileData.Distance_m < 100e-3
 max_1 = max(mpdProfile(i_segment_1));
 max_2 = max(mpdProfile(i_segment_2));
-msd = (max_1 + max_2) / 2;
-disp(['MSD Value: ', num2str(msd)]);
+MSD = (max_1 + max_2) / 2;
+fprintf('MSD Value: %.4f', MSD);
 ```
 
 ---
@@ -103,7 +103,7 @@ megaProfile = filtfilt(B, A, ProfileData.Profile_mm);
 % Compute rms value
 i_segment_1m = ProfileData.Distance_m >= 0 & ProfileData.Distance_m < 1
 rms_mega = rms(megaProfile(i_segment_1m));
-disp(['RMS of Mega Texture: ', num2str(rms_mega)]);
+fprintf('RMS of Mega Texture: %.3f', rms_mega);
 ```
 
 ---
@@ -185,8 +185,8 @@ i_segment_2 = (distance >= 50e-3) & (distance < 100e-3)
 # Extracting mean segment depth (msd) from two consecutive 50mm segments
 max_1 = np.max(mpd_profile[i_segment_1])
 max_2 = np.max(mpd_profile[i_segment_2])
-msd = (max_1 + max_2) / 2
-print(f"msd Value: {msd}")
+MSD = (max_1 + max_2) / 2
+print(f"MSD Value: {MSD:.4f}")
 ```
 
 ---
@@ -203,7 +203,7 @@ mega_profile = signal.filtfilt(B, A, profile)
 
 i_segment_1m = (distance >= 0) & (distance < 1)
 rms_mega = np.sqrt(np.mean(mega_profile[i_segment_1m] ** 2))
-print(f"RMS of Mega Texture: {rms_mega}")
+print(f"RMS of Mega Texture: {rms_mega:.3f}")
 ```
 
 ---
