@@ -17,7 +17,7 @@ The road profile data is stored in a CSV file. We first need to load and visuali
 
 ```matlab
 % Define the file path (you will need to modify path to where you file is located)
-p = **<ENTER_FILE_PATH_HERE>**;
+p = '<ENTER_FILE_PATH_HERE>'; 
 filename = fullfile(p, 'ProfileData.csv');
 
 % Read the CSV file
@@ -43,9 +43,9 @@ To extract wavelength of interest, we apply **high-pass** and **low-pass** filte
 ```matlab
 % Define cutoff frequencies
 % High-pass removes wavelengths longer than the defined limit
-limitMacroHigh = **<ENTER_HIGH_PASS_WAVELENGTH_HERE>**; % High-pass cutoff, wavelength (m)
+limitMacroHigh = <ENTER_HIGH_PASS_WAVELENGTH_HERE>; % High-pass cutoff, wavelength (m)
 % Low-pass removes wavelengths shorter than the defined limit
-limitMacroLow = **<ENTER_LOW_PASS_WAVELENGTH_HERE>**; % Low-pass cutoff, wavelength (m)
+limitMacroLow = <ENTER_LOW_PASS_WAVELENGTH_HERE>; % Low-pass cutoff, wavelength (m)
 fHigh = 1 / limitMacroHigh;
 fLow = 1 / limitMacroLow;
 
@@ -90,11 +90,11 @@ disp(['MSD Value: ', num2str(msd)]);
 ---
 
 ### **Step 5: Compute RMS for Mega Texture**
-We use a **band-pass filter** between relevant wavelengths (50 mm and 500 mm).
+We use a **band-pass filter** between relevant wavelengths (i.e. 50 mm and 500 mm).
 
 ```matlab
-limitMegaHigh = **<ENTER_HIGH_PASS_WAVELENGTH_HERE>**; %Wavelength (m)
-limitMegaLow = **<ENTER_LOW_PASS_WAVELENGTH_HERE>**; %Wavelength (m)
+limitMegaHigh = <ENTER_HIGH_PASS_WAVELENGTH_HERE>; %Wavelength (m)
+limitMegaLow = <ENTER_LOW_PASS_WAVELENGTH_HERE>; %Wavelength (m)
 limitMega = [limitMegaHigh, limitMegaLow]; %Wavelength (m)
 fMega = 1 ./ limitMega;
 [B, A] = butter(3, fMega * (2 * dx), 'bandpass');
@@ -120,8 +120,9 @@ import scipy.signal as signal
 import os
 
 # Load CSV data (you will need to modify path to where you file is located)
-p = os.path.join('C:\Users\YourUsername', 'ProfileData.csv')
-ProfileData = pd.read_csv(p)
+p = '<ENTER_FILE_PATH_HERE>';
+filename = os.path.join(p, 'ProfileData.csv')
+ProfileData = pd.read_csv(filename)
 
 # Extract distance and profile
 distance = ProfileData['Distance_m']
@@ -145,9 +146,9 @@ plt.show()
 
 ```python
 # High-pass removes wavelengths longer than this limit
-limit_macro_high = _____ #Wavelength (m)
+limit_macro_high = <ENTER_HIGH_PASS_WAVELENGTH_HERE> # High-pass cutoff, wavelength (m)
 # Low-pass removes wavelengths shorter than this limit
-limit_macro_low = _____ #Wavelength (m)
+limit_macro_low = <ENTER_LOW_PASS_WAVELENGTH_HERE> #Wavelength (m)
 f_high = 1 / limit_macro_high
 f_low = 1 / limit_macro_low
 
@@ -193,14 +194,15 @@ print(f"msd Value: {msd}")
 ### **Step 5: Compute RMS for Mega Texture**
 We use a band-pass filter between 50 mm and 500 mm.
 ```python
-# Define wavelength limits for megatexture filtering (e.g., 50mm to 500mm)
-limit_mega_high = _____
-limit_mega_low = _____
+# Define wavelength limits for megatexture filtering (i.e. 50mm to 500mm)
+limit_mega_high = <ENTER_HIGH_PASS_WAVELENGTH_HERE>
+limit_mega_low = <ENTER_LOW_PASS_WAVELENGTH_HERE>
 f_mega = [1 / limit_mega_high, 1 / limit_mega_low]
 B, A = signal.butter(3, np.array(f_mega) * (2 * dx), btype='bandpass')
 mega_profile = signal.filtfilt(B, A, profile)
 
-rms_mega = np.sqrt(np.mean(mega_profile[(distance >= 0) & (distance < 1)] ** 2))
+i_segment_1m = (distance >= 0) & (distance < 1)
+rms_mega = np.sqrt(np.mean(mega_profile[i_segment_1m] ** 2))
 print(f"RMS of Mega Texture: {rms_mega}")
 ```
 
