@@ -25,8 +25,6 @@ ProfileData = readtable(filename);
 
 % Extract sampling interval (assuming uniform spacing)
 dx = ProfileData.Distance_m(2); 
-% dx represents the sampling interval, assuming uniform spacing in data
-dx = ProfileData.Distance_m(2); 
 
 % Plot raw profile data
 figure;
