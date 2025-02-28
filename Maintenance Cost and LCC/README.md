@@ -25,6 +25,7 @@ Each tutorial provides a structured implementation of maintenance cost calculati
 
 ## Assignment
 An assignment with data is available in English and Swedish
-- [LCC Assignment](./Assignment/Assignment LCC Analyss of a Crushing Plant.pdf)  
-- [Uppgift LCC](./Assignment/Uppgift LCC analys av en krossanläggning.pdf)  
+- [LCC Assignment](./Assignment/LCC_Analysis_of_a_Crushing_Plant.pdf)  
+- [Uppgift LCC](./Assignment/LCC_analys_av_en_krossanläggning.pdf)  
+
 
