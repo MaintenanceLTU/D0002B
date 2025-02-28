@@ -4,8 +4,8 @@ This repository contains tutorials for implementing **Maintenance Cost and Avail
 
 ## Tutorials  
 
-- [MATLAB Tutorial](./Maintenance_Cost_Analysis_MATLAB.md)  
-- [Python Tutorial](./Maintenance_Cost_Analysis_Python.md)  
+- [MATLAB Tutorial](./MATLAB/Maintenance_Cost_Analysis_MATLAB.md)  
+- [Python Tutorial](./Python/Maintenance_Cost_Analysis_Python.md)  
 
 Each tutorial provides a structured implementation of maintenance cost calculations, availability analysis, and NPV (Net Present Value) estimation.  
 
@@ -21,5 +21,10 @@ Each tutorial provides a structured implementation of maintenance cost calculati
 
 ## Additional Notes  
 
-- Python users need **NumPy** and **Matplotlib** for calculations and plotting.  
+- Python users need **NumPy** and **Matplotlib** for calculations and plotting. 
+
+## Assignment
+An assignment with data is available in English and Swedish
+- [LCC Assignment](./Assignment/Assignment LCC Analyss of a Crushing Plant.pdf)  
+- [Uppgift LCC](./Assignment/Uppgift LCC analys av en krossanläggning.pdf)  
 
