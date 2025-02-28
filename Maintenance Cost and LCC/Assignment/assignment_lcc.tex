@@ -1,0 +1,138 @@
+\documentclass[a4paper,12pt]{exam}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{hyperref} % Enables hyperlinks
+\usepackage{parskip} % Removes indentation and adds space between paragraphs
+
+
+\title{LCC Analysis of a Crushing Plant}
+\author{Johan Odelius \\
+        Division of Operation and Maintenance \\
+        Lule\aa{} University of Technology}
+\date{2025-02-28}
+
+\begin{document}
+
+\maketitle
+
+\section*{Background}
+In this assignment, you are required to perform a Life Cycle Cost (LCC) analysis of a crushing plant. The plant consists of a crusher unit, a conveyor, and a screen adapted for the desired grain size. You are responsible for this production facility and should investigate how various factors affect your LCC.
+
+
+Tutorials for MATLAB and Python are available, visit:  
+\href{https://github.com/MaintenanceLTU/D0002B/tree/main/Maintenance%20Cost%20and%20LCC}{MaintenanceLTU GitHub Repository}. Include your code ass appendix to your report. 
+\section{Availability and LCC calculations}
+\subsection{Availability Calculations}
+Calculate the maintenance time and availability using the following data:
+\begin{itemize}
+    \item \textbf{Discount rate:} 10\%.
+    \item \textbf{Calculation period:} 5 years.
+    \item \textbf{Operating time:} 8,424 hours per year (24 hours/day, excluding a two-week annual maintenance stop in August).
+    \item \textbf{Corrective maintenance:}
+    \begin{itemize}
+        \item Number of failures per year: 28.
+        \item Mean Time to Repair (MTTR): 0.8 days.
+        \item Mean Waiting Time for Corrective Maintenance: 0.2 days.
+    \end{itemize}
+\end{itemize}
+Present the following variables in a table: 
+\begin{itemize}
+    \item Preventive maintenance time
+    \item Repair time
+    \item Corrective maintenance time
+    \item Downtime
+    \item Available time
+    \item Operational availability ($A_o$)
+\end{itemize}
+\subsection{Life Cycle Cost Calculations}
+Calculate the life cycle costs of the asset.
+\begin{itemize}
+    \item Yearly maintenance cost.
+    \begin{itemize}
+    \item The mean hourly cost for corrective maintenance is \textbf{7,000 SEK}. 
+    \item The cost of the two-week preventive maintenance cost is \textbf{1,400,000 tons/year}. 
+    \end{itemize}    
+    \item Yearly income. 
+    \begin{itemize}
+    \item The capacity of the crusher plant is \textbf{265,000 tons/year}.
+    \item The price of macadam is \textbf{ 100 SEK / ton}.
+    \item Include parameters for: \begin{itemize}
+        \item Performance (initially set to 1, full capacity).
+        \item Quality (initially set to 1, 100\% quality yield).
+    \end{itemize}
+    \end{itemize}
+    \item Yearly operating costs:
+    \begin{itemize}
+        \item Energy cost: 600 SEK/hour (scalable with performance).
+        \item Operator cost: 500 SEK/hour.
+    \end{itemize}
+    \item Investment cost: 
+    \begin{itemize}
+    \item The basic price of the asset is \textbf{ 14,000,000 SEK}.
+    \end{itemize}
+    \item Residual value: 
+    \begin{itemize}
+    \item Investment reduces by \textbf{50\% per year}.
+    \end{itemize}
+\end{itemize}
+
+\subsection{(Net Present Value (NPV) Calculation}
+Calculate present values of annual costs (operation, maintenance, and income) and single amounts (residual value). Then compute NPV and report using the table format in Table~\ref{NPVtable}.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{Item} & \textbf{Present Value} & \textbf{Annual Amounts} & \textbf{Amount in Year X} \\
+        \midrule
+        Investment & -XXX &  &  \\
+        Maintenance & -XXX & -XXX & -XXX \\
+        Operating Cost & -XXX & -XXX & -XXX \\
+        Revenue & XXX & XXX &  \\
+        Residual Value & XXX & XXX &  \\
+        \textbf{NPV} & \textbf{XXX} &  &  \\
+        \bottomrule
+    \end{tabular}
+    \caption{NPV Calculation Summary}
+    \label{NPVtable}
+\end{table}
+
+\section{Improving availability}
+\subsection{Increasing MTBF}
+Perform the same calculations as in Task 1, assuming an additional MTBF. Each \textbf{1\% extra MTBF} increases the investment cost by \textbf{125,000 SEK}. Compute the \textbf{NPV for 10\% extra MTBF} using the same table format (Table~\ref{NPVtable}).
+
+\textbf{Tip:} A 10\% increase in MTBF is modeled as a \textbf{$1/(1.10)$ reduction} in the failure rate.
+
+\subsection{Preventive Maintenance Stops}
+Perform the same calculations but include \textbf{preventive maintenance (PM) stops}:
+\begin{itemize}
+    \item Each PM stop lasts \textbf{24 hours}, costs \textbf{140,000 SEK}, and reduces failures by \textbf{5\%}.
+    \item Update failure count, PM time, and maintenance costs.
+\end{itemize}
+Compute NPV for\textbf{6 additional PM stops} and report using the same table format.
+
+\section{Maintenance Optimization}
+\subsection{Finding Optimal MTBF Increase}
+Plot \textbf{NPV vs. extra \% MTBF} for the range \textbf{0–100\%}, in \textbf{1\% steps}, using \textbf{6 extra PM stops}.
+
+\subsection{Finding Optimal PM Stops}
+Plot \textbf{NPV vs. number of PM stops} in the range \textbf{0–24 stops}, using \textbf{10\% extra MTBF}.
+
+\textbf{Report:} Present the optimal solution with graphs.
+
+\section{Sensitivity Analysis}
+Perform sensitivity analysis using \textbf{10\% extra MTBF and 6 extra PM stops}.
+
+\subsection{Minimum Quality Yield}
+Set plant efficiency to 95\%. What is the minimum quality yield needed for a positive NPV? 
+
+\subsection{(b) Break-even Price}
+Set plant efficiency to 95\% and quality to 95\%. At what crushed stone price does NPV become negative?
+
+\subsection{Interest Rate Sensitivity}
+For a \textbf{stone price of 85 SEK}, what discount rate causes NPV $<0$?
+
+\textbf{Report:} Present results and graphs.
+
+\end{document}

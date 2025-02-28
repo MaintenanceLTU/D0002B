@@ -1,0 +1,110 @@
+\documentclass[a4paper,12pt]{exam}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{hyperref} % Aktiverar hyperlänkar
+\usepackage{parskip} % Tar bort indrag och lägger till extra radavstånd
+
+\title{LCC-analys av en krossanläggning}
+\author{Johan Odelius \\
+        Avdelningen för drift och underhåll \\
+        Lule\aa{} tekniska universitet}
+\date{2025-02-28}
+
+\begin{document}
+
+\maketitle
+
+\section*{Bakgrund}
+I denna uppgift ska du genomföra en Life Cycle Cost (LCC)-analys av en krossanläggning. Anläggningen består av en kross, en transportör och en sikt anpassad för önskad kornstorlek. Du är ansvarig för denna produktionsanläggning och ska undersöka hur olika faktorer påverkar din LCC.
+
+Handledningar för MATLAB och Python finns tillgängliga, besök:  
+\href{https://github.com/MaintenanceLTU/D0002B/tree/main/Maintenance%20Cost%20and%20LCC}{MaintenanceLTU GitHub Repository}. Inkludera din kod som bilaga i rapporten.
+
+\section{Tillgänglighet och LCC-beräkningar}
+\subsection{Tillgänglighetsberäkningar}
+Beräkna underhållstid och tillgänglighet med följande data:
+\begin{itemize}
+    \item \textbf{Kalkylränta:} 10\%.
+    \item \textbf{Kalkylperiod:} 5 år.
+    \item \textbf{Drifttid:} 8 424 timmar per år (24 timmar/dygn, exklusive ett två veckors underhållsstopp i augusti).
+    \item \textbf{Avhjälpande underhåll:}
+    \begin{itemize}
+        \item Antal fel per år: 28.
+        \item Medelreparationstid (MTTR): 0,8 dagar.
+        \item Medelväntetid för avhjälpande underhåll: 0,2 dagar.
+    \end{itemize}
+\end{itemize}
+Presentera följande variabler i en tabell: 
+\begin{itemize}
+    \item Förebyggande underhållstid
+    \item Reparationstid
+    \item Avhjälpande underhållstid
+    \item Otillgänglig tid
+    \item Tillgänglig tid
+    \item Operativ tillgänglighet ($A_o$)
+\end{itemize}
+
+\subsection{Livscykelkostnadsberäkningar}
+Beräkna livscykelkostnaderna för anläggningen.
+\begin{itemize}
+    \item Årlig underhållskostnad.
+    \begin{itemize}
+    \item Medelkostnad per timme för avhjälpande underhåll: \textbf{7 000 SEK}. 
+    \item Kostnaden för det två veckors förebyggande underhållet: \textbf{1 400 000 SEK}. 
+    \end{itemize}    
+    \item Årlig inkomst. 
+    \begin{itemize}
+    \item Kapaciteten för krossanläggningen är \textbf{265 000 ton/år}.
+    \item Priset för makadam är \textbf{100 SEK/ton}.
+    \item Inkludera parametrar för: 
+    \begin{itemize}
+        \item Anläggningseffektivitet (initialt satt till 1, full kapacitet).
+        \item Kvalitet (initialt satt till 1, 100\% kvalitetsutbyte).
+    \end{itemize}
+    \end{itemize}
+    \item Årliga driftskostnader:
+    \begin{itemize}
+        \item Energikostnad: 600 SEK/timme (påverkas av anläggningseffektivitet).
+        \item Operatörskostnad: 500 SEK/timme.
+    \end{itemize}
+    \item Investeringskostnad: \textbf{14 000 000 SEK}.
+    \item Restvärde: Investeringen minskar med \textbf{50\% per år}.
+\end{itemize}
+
+\section{Förbättrad tillgänglighet}
+\subsection{Ökad MTBF}
+Utför samma beräkningar som i Uppgift 1 men med en ökad MTBF. Varje \textbf{1\% extra MTBF} ökar investeringskostnaden med \textbf{125 000 SEK}. Beräkna \textbf{NPV för 10\% extra MTBF} och använd samma tabellformat.
+
+\subsection{Förebyggande underhållsstopp}
+Inkludera \textbf{förebyggande underhållsstopp} i beräkningarna:
+\begin{itemize}
+    \item Varje FU-stopp varar \textbf{24 timmar}, kostar \textbf{140 000 SEK}, och minskar antalet fel med \textbf{5\%}.
+    \item Uppdatera felantal, FU-tid och underhållskostnader.
+\end{itemize}
+Beräkna \textbf{NPV för 6 extra FU-stopp} och använd samma tabellformat.
+
+\section{Optimering av underhåll}
+\subsection{Optimalt antal MTBF-ökningar}
+Plotta \textbf{NPV mot extra \% MTBF} i intervallet \textbf{0–100\%} i steg om \textbf{1\%}, med \textbf{6 extra FU-stopp}.
+
+\subsection{Optimalt antal FU-stopp}
+Plotta \textbf{NPV mot antal FU-stopp} i intervallet \textbf{0–24 stopp}, med \textbf{10\% extra MTBF}.
+
+\textbf{Rapport:} Presentera optimal lösning och grafer.
+
+\section{Känslighetsanalys}
+Genomför känslighetsanalys med \textbf{10\% extra MTBF och 6 extra FU-stopp}.
+
+\subsection{Minsta kvalitetsutbyte}
+Sätt anläggningseffektiviteten till 95\%. Vilket är det minsta kvalitetsutbytet för att få ett positivt NPV?
+
+\subsection{Lönsamhetsgräns}
+Sätt anläggningseffektiviteten till 95\% och kvaliteten till 95\%. Vid vilket makadampris blir NPV negativt?
+
+\subsection{Räntans påverkan}
+För ett makadampris på 85 SEK, vid vilken kalkylränta blir NPV $<0$? Behåll anläggningseffektiviteten på 95\% och kvaliteten på 95\%.
+
+\textbf{Rapport:} Presentera resultat och grafer.
+
+\end{document}
