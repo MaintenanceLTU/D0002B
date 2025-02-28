@@ -1,4 +1,4 @@
-# **Python Tutorial*
+# **Python Tutorial**
 Road Profile Texture Features Calculation
 ## **Step 1: Load the Road Profile Data**
 The road profile data is stored in a CSV file. We first need to load and visualize it.
