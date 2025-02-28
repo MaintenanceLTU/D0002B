@@ -88,8 +88,10 @@ grid on;
 
 ```
 
-## **Notes on Looping and Variable Re-Assignment**
+## **Note on Looping and Variable Re-Assignment**
 When implementing loops, remember:
-Only one variable should be looped at a time. Keep all other variables fixed. Reassign values inside the loop to reflect changes correctly in calculations. If looping over a different variable (e.g., Interest Rate, FU Stops), replace the looped variable accordingly. 
-Re-assigning fixed variables inside the loop is not recommended coding practice; however, it is used here to maintain a consistent code structure across different tasks.
+- Only one variable should be looped at a time. Keep all other variables fixed.
+- Reassign values inside the loop to reflect changes correctly in calculations.
+- If looping over a different variable (e.g., Interest Rate, FU Stops), replace the looped variable accordingly
+- Re-assigning fixed variables inside the loop is not recommended coding practice, but it is used here to maintain a consistent code structure across different tasks.
 ---
