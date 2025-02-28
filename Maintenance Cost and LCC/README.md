@@ -1,25 +1,26 @@
 # Maintenance Cost and Availability Analysis in MATLAB
 
-## **Basic Calculation of Maintenance Costs and Availability**
+## **Calculation of Availability**
 This section calculates key maintenance parameters, including downtime, uptime, availability, and costs.
 
 ```matlab
 %% Define Interest Rate and Calculation Period
-InterestRate = 0.1; % Discount rate
-LifeLength = 5; % Analysis period in years
+InterestRate = <ADD_VALUE_HERE>; % Discount rate
+LifeLength = <ADD_VALUE_HERE>; % Analysis period in years
 
 %% Define Maintenance Times
 TotalTime = 365*24; % Total hours per year
 
 % Preventive Maintenance
-NumberOfLongPM = 1; % One major preventive maintenance stop
+NumberOfLongPM = <ADD_VALUE_HERE>; % One major preventive maintenance stop
 NumberOfPreventiveMaintenance = NumberOfLongPM;
-MPMT = 2*7*24; % Mean preventive maintenance time in hours
+MPMT = <ADD_VALUE_HERE>; % Mean preventive maintenance time in hours
 
 % Corrective Maintenance
-NumberOfFailures = 28; % Number of failures per year
-MTTR = 0.8*24; % Mean time to repair (hours)
-MWT_CM = 0.2*24; % Mean waiting time for corrective maintenance (hours)
+NumberOfFailuresBasic = <ADD_VALUE_HERE>% Input Number of failures per year
+NumberOfFailures = NumberOfFailuresBasic; % Calculated Number of failures per year
+MTTR = <ADD_VALUE_HERE>; % Mean time to repair (hours)
+MWT_CM = <ADD_VALUE_HERE>; % Mean waiting time for corrective maintenance (hours)
 
 % Calculate Downtime and Availability
 PreventiveMaintenanceTime = NumberOfPreventiveMaintenance*MPMT;
@@ -30,28 +31,82 @@ Uptime = TotalTime - Downtime;
 Ao = Uptime / (Uptime + Downtime); % Operational availability
 ```
 
+## **Calculation of  Costs**
+This section calculates costs parameters, including maintenance, operation, income, investement and residual value. .
+
+```matlab
+%% Maintenance Cost Calculation
+PreventiveMaintenanceCost = <ADD_VALUE_HERE>; % Cost of preventive maintenance
+HourlyRepairCost = <ADD_VALUE_HERE>; % Hourly repair cost (corrective maintenance)
+CorrectiveMaintenanceCost = HourlyRepairCost * CorrectiveMaintenanceTime;
+% Annual maintenance cost
+YMC = PreventiveMaintenanceCost + CorrectiveMaintenanceCost;
+
+%% Annual Income Calculation
+Capacity = <ADD_VALUE_HERE>; % Annual capacity (tons)
+Price = <ADD_VALUE_HERE>; % Price per ton (currency)
+Performance = <ADD_VALUE_HERE>; % Plant efficiency
+Quality = <ADD_VALUE_HERE>; % Quality factor
+
+OEE = Ao * Performance * Quality;
+% Annual income
+YI = Capacity * OEE * Price;
+
+%% Operating Costs Calculation
+PersonellCost = <ADD_VALUE_HERE>; % Operator cost per hour
+EnergyCost = <ADD_VALUE_HERE>; % Energy cost per hour at 100% performance
+
+% Annual operating cost
+YOC = Uptime * PersonellCost + Uptime * Performance * EnergyCost;
+
+%% Investment Cost Calculation
+AssetBasicPrice = <ADD_VALUE_HERE>; % Purchase cost
+InvestmentCost = AssetBasicPrice; % Total investment cost
+```
+
+## **Calculation of Net Present Value (NPV)**
+This section calculates the present value for the costs parameters.
+
+```matlab
+%% Net present value calculations.
+% Present value calculatiosn for yearly costs
+PVFA = (1-(1+InterestRate)^(-LifeLength))/InterestRate; % Present Value Factor of Annuity
+PV_MC = PVFA*YMC;
+PV_OC = PVFA*YOC;
+PV_I = PVFA*YI;
+% Present value caluclation for residual value
+PVF = 1/(1+InterestRate)^LifeLength; % Present Value Factor
+PV_RV = PVF*RV;
+
+% Net present value
+NPV = -InvestmentCost+PV_I-(PV_MC+PV_OC)+PV_RV;
+
+```
 ---
 ## **Adding Extra MTBF Purchase Option**
 This section modifies existing variables to add the possibility of buying additional MTBF to reduce failures. 
 
 ```matlab
 % Add this variable before computation of number of failures
-PercentIncreasedMTBF = 0;
-% Modify these variables, do not add new lines at the bottom of the code
-NumberOfFailures = 28 / (1 + PercentIncreasedMTBF / 100); % Adjust failure count
-PriceFor1PercentMTBF = 125000;
+PercentIncreasedMTBF = <ADD_VALUE_HERE>;
+% Modify this variable, do not add new lines at the bottom of the code
+NumberOfFailures = NumberOfFailuresBasic / (1 + PercentIncreasedMTBF / 100);
+% Add this variable before computation of investement cost
+PriceFor1PercentMTBF = <ADD_VALUE_HERE>;
+% Modify this variable, do not add new lines at the bottom of the code
 InvestmentCost = AssetBasicPrice + PriceFor1PercentMTBF * PercentIncreasedMTBF;
 ```
+
 ## **Including Short Preventive Maintenance**
 Adding short PM events, which further lowers the number of failures. Modify the existing variables.
 
 ```matlab
 % Add this variable before computation of preventive maintenance time
-NumberOfShortPM = 0;
+NumberOfShortPM = <ADD_VALUE_HERE>;
 % Modify these variables, do not add new lines at the bottom of the code
 NumberOfPreventiveMaintenance = NumberOfLongPM + NumberOfShortPM;
 MPMT = (2*7*24*NumberOfLongPM + 24*NumberOfShortPM) / NumberOfPreventiveMaintenance;
-NumberOfFailures = 28 / (1 + PercentIncreasedMTBF / 100) * 0.95^NumberOfShortPM;
+NumberOfFailures = NumberOfFailuresBasic / (1 + PercentIncreasedMTBF / 100) * 0.95^NumberOfShortPM;
 PreventiveMaintenanceCost = 1.4e6 + NumberOfShortPM * 140000;
 ```
 
@@ -66,12 +121,11 @@ NPV_vector = [];
 
 for k = VariableRange
     
-    %% Modify only one variable per loop run
-    PercentIncreasedMTBF = k; % Example: looping over extra MTBF
-    NumberOfShortPM = 6; % Fixed for MTBF loop
-    
-    %% Run the Entire Calculation
-    % Copy the entire calculation block here, ensuring variables are correctly reassigned
+    % Modify only one variable per loop run
+	% Example: looping over extra MTBF
+    PercentIncreasedMTBF = k; 
+        
+    % Run the Entire Calculation    
     % All existing equations remain unchanged, except for the looped variable
     
     %% Store Results
