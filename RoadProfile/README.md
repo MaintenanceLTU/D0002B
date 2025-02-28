@@ -9,9 +9,12 @@ This tutorial guides you through the process of calculating **road profile macro
 - **Computing Root Mean Square (RMS)** for megatexture.
 
 For specifications of wavelengths and more details see ISO 13473-1 [1] and ISO/FDIS 13473-5 [2] for macrotexture and megatexture, respectively. 
-### **References**
-[1] EN ISO 13473-1: Characterization of pavement texture by use of surface profiles -Part 1: Determination of Mean Profile Depth
-[2] Pr EN ISO/DIS 13473-5: Characterization of pavement texture by use of surface profiles -Part 5: Determination of Megatexture
+### **References**  
+
+[1] EN ISO 13473-1: Characterization of pavement texture by use of surface profiles - Part 1: Determination of Mean Profile Depth.  
+
+[2] Pr EN ISO/DIS 13473-5: Characterization of pavement texture by use of surface profiles - Part 5: Determination of Megatexture.  
+
 
 ## Tutorials  
 
@@ -19,6 +22,23 @@ For specifications of wavelengths and more details see ISO 13473-1 [1] and ISO/F
 - [Python Tutorial](./Road_Profile_Filtering_Python.md)  
 
 Each tutorial provides a structured implementation of filtering and road texture feature calculations.  
+
+---
+## **Data File**  
+
+The road profile data is provided in a **CSV file** located in the repository:  
+
+**[ProfileData.csv](./data/ProfileData.csv)**  
+
+This file contains the raw road profile measurements required for texture feature calculations. Both the **MATLAB** and **Python** tutorials include instructions on how to read and process this data.  
+
+### **CSV File Format:**  
+| Column | Description |
+|--------|------------|
+| Distance_m | Longitudinal position along the road profile in meters |
+| Profile_mm | Surface profile at each measurement point in millimeters|
+
+Make sure to download this file when running the provided tutorials.  
 
 ---
 ## Instructions  
@@ -30,6 +50,7 @@ Each tutorial provides a structured implementation of filtering and road texture
 2. **Python Users**  
    - Open `Road_Profile_Filtering_Python.md` for step-by-step guidance.  
    - Run the provided Python scripts in **Jupyter Notebook** or a **Python IDE** (e.g., Spyder, VS Code, PyCharm).  
+   
 
 ## Additional Notes  
 
