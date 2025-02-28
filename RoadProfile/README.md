@@ -65,7 +65,7 @@ mpdProfile = filtfilt(Bl, Al, filtfilt(Bh, Ah, ProfileData.Profile_mm));
 
 % Plot filtered data for segment (100 mm)
 figure;
-i_segment = ProfileData.Distance_m >= 0 & ProfileData.Distance_m < 100e-3
+i_segment = ProfileData.Distance_m >= 0 & ProfileData.Distance_m < 100e-3;
 plot(ProfileData.Distance_m(i_segment), mpdProfile(i_segment));
 xlabel('Distance (m)');
 ylabel('Filtered Profile (mm)');
@@ -79,12 +79,12 @@ grid on;
 
 ```matlab
 % Extracting maximum profile slope (MPS) from two consecutive 50mm segments
-i_segment_1 = ProfileData.Distance_m >= 0 & ProfileData.Distance_m < 50e-3
-i_segment_2 = ProfileData.Distance_m >= 50e-3 & ProfileData.Distance_m < 100e-3
+i_segment_1 = ProfileData.Distance_m >= 0 & ProfileData.Distance_m < 50e-3;
+i_segment_2 = ProfileData.Distance_m >= 50e-3 & ProfileData.Distance_m < 100e-3;
 max_1 = max(mpdProfile(i_segment_1));
 max_2 = max(mpdProfile(i_segment_2));
 MSD = (max_1 + max_2) / 2;
-fprintf('MSD Value: %.4f', MSD);
+fprintf('MSD Value: %.4f mm\n', MSD);
 ```
 
 ---
@@ -101,9 +101,9 @@ fMega = 1 ./ limitMega;
 megaProfile = filtfilt(B, A, ProfileData.Profile_mm);
 
 % Compute rms value
-i_segment_1m = ProfileData.Distance_m >= 0 & ProfileData.Distance_m < 1
+i_segment_1m = ProfileData.Distance_m >= 0 & ProfileData.Distance_m < 1;
 rms_mega = rms(megaProfile(i_segment_1m));
-fprintf('RMS of Mega Texture: %.3f', rms_mega);
+fprintf('RMS of Mega Texture: %.3f mm\n', rms_mega);
 ```
 
 ---
