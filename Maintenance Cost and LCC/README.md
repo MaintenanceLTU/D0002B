@@ -42,8 +42,6 @@ NumberOfFailures = 28 / (1 + PercentIncreasedMTBF / 100); % Adjust failure count
 PriceFor1PercentMTBF = 125000;
 InvestmentCost = AssetBasicPrice + PriceFor1PercentMTBF * PercentIncreasedMTBF;
 ```
-
----
 ## **Including Short Preventive Maintenance**
 Adding short PM events, which further lowers the number of failures. Modify the existing variables.
 
@@ -89,7 +87,8 @@ title('Effect of Extra MTBF on NPV')
 grid on;
 
 ```
-**Notes on Looping and Variable Re-Assignment**
+
+## **Notes on Looping and Variable Re-Assignment**
 When implementing loops, remember:
 Only one variable should be looped at a time. Keep all other variables fixed. Reassign values inside the loop to reflect changes correctly in calculations. If looping over a different variable (e.g., Interest Rate, FU Stops), replace the looped variable accordingly. 
 Re-assigning fixed variables inside the loop is not recommended coding practice; however, it is used here to maintain a consistent code structure across different tasks.
