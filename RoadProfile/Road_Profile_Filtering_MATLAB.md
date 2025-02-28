@@ -50,9 +50,9 @@ Using `filtfilt()`, we apply **zero-phase filtering** to the profile data.
 mpdProfile = filtfilt(Bl, Al, filtfilt(Bh, Ah, ProfileData.Profile_mm));
 ```
 ### **Compute MSD (Mean Segment Depth)**
-Extract 100m of data and compute mean segment depth.
+Extract 100 mm of data and compute mean segment depth.
 ```matlab
-% Specify 100 m segment
+% Specify 100 mm segment
 i_segment = ProfileData.Distance_m >= 0 & ProfileData.Distance_m < 100e-3;
 
 % Plot filtered data for segment
@@ -81,14 +81,21 @@ fprintf('MSD Value: %.4f mm\n', MSD);
 We use a **band-pass filter** between relevant wavelengths (i.e. 50 mm and 500 mm).
 
 ```matlab
+% Define cutoff frequencies
+% High-pass removes wavelengths longer than the defined limit
 limitMegaHigh = <ENTER_HIGH_PASS_WAVELENGTH_HERE>; %Wavelength (m)
+% Low-pass removes wavelengths shorter than the defined limit
 limitMegaLow = <ENTER_LOW_PASS_WAVELENGTH_HERE>; %Wavelength (m)
+
+% Design Butterworth band-pass filter
 limitMega = [limitMegaHigh, limitMegaLow]; %Wavelength (m)
 fMega = 1 ./ limitMega;
 [B, A] = butter(3, fMega * (2 * dx), 'bandpass');
+
+% Applying band-pass filter using zero-phase filtering
 megaProfile = filtfilt(B, A, ProfileData.Profile_mm);
 
-% Compute rms value
+% Compute rms value of 1 m segment
 i_segment_1m = ProfileData.Distance_m >= 0 & ProfileData.Distance_m < 1;
 rms_mega = rms(megaProfile(i_segment_1m));
 fprintf('RMS of Mega Texture: %.3f mm\n', rms_mega);
