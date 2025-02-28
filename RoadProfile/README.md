@@ -1,13 +1,14 @@
 # Road Profile Texture Features Calculation: MATLAB & Python Tutorial
 
 ## **Introduction**
-This tutorial guides you through the process of calculating **road profile macrotexture and megatexture features**, according to ISO 13473-1 [1] and ISO/FDIS 13473-5 [2]. The tutorial includes filtering road profile data using a Butterworth filter in **MATLAB** and **Python** and covers:
+This tutorial guides you through the process of calculating **road profile macrotexture and megatexture features**. The tutorial includes filtering road profile data using a Butterworth filter in **MATLAB** and **Python** and covers:
 
 - **Reading road profile data** from a CSV file.
 - **Designing and applying Butterworth filters** to extract  wavelength of interest.
 - **Computing Mean Segment Depth (MSD)** for macrotexture.
 - **Computing Root Mean Square (RMS)** for megatexture.
 
+For specifications of wavelengths and more details see ISO 13473-1 [1] and ISO/FDIS 13473-5 [2] for macrotexture and megatexture, respectively. 
 ### **References**
 [1] EN ISO 13473-1: Characterization of pavement texture by use of surface profiles -Part 1: Determination of Mean Profile Depth
 [2] Pr EN ISO/DIS 13473-5: Characterization of pavement texture by use of surface profiles -Part 5: Determination of Megatexture
