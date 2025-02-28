@@ -18,8 +18,8 @@ For specifications of wavelengths and more details see ISO 13473-1 [1] and ISO/F
 
 ## Tutorials  
 
-- [MATLAB Tutorial](./Road_Profile_Filtering_MATLAB.md)  
-- [Python Tutorial](./Road_Profile_Filtering_Python.md)  
+- [MATLAB Tutorial](./MATLAB/Road_Profile_Filtering_MATLAB.md)  
+- [Python Tutorial](./Python/Road_Profile_Filtering_Python.md)  
 
 Each tutorial provides a structured implementation of filtering and road texture feature calculations.  
 
