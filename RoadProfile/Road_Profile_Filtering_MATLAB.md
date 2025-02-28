@@ -1,4 +1,5 @@
-# **MATLAB Tutorial:** Road Profile Texture Features Calculation
+# **MATLAB Tutorial** 
+Road Profile Texture Features Calculation
 
 ## **Step 1: Load the Road Profile Data**
 The road profile data is stored in a CSV file. We first need to load and visualize it.
@@ -14,7 +15,7 @@ ProfileData = readtable(filename);
 % Extract sampling interval (assuming uniform spacing)
 dx = ProfileData.Distance_m(2); 
 ```
-### **Plot the results**
+### **Plot the raw road profile**
 ```matlab
 % Plot raw profile data
 figure;
@@ -63,14 +64,16 @@ ylabel('Filtered Profile (mm)');
 title('Filtered Road Profile (Macrotexture)');
 grid on;
 ```
-From the plot one can read maximum values for the two consecutive 50mm segments. It can also be implemented in Matlab as follow.
+From the plot, the maximum values ​​for the two consecutive 50 mm segments can be read. It can also be implemented as follows.
 
 ```matlab
 % Extracting maximum values from two consecutive 50mm segments
 i_segment_1 = ProfileData.Distance_m >= 0 & ProfileData.Distance_m < 50e-3;
 i_segment_2 = ProfileData.Distance_m >= 50e-3 & ProfileData.Distance_m < 100e-3;
+
 max_1 = max(mpdProfile(i_segment_1));
 max_2 = max(mpdProfile(i_segment_2));
+
 MSD = (max_1 + max_2) / 2;
 fprintf('MSD Value: %.4f mm\n', MSD);
 ```
@@ -78,7 +81,7 @@ fprintf('MSD Value: %.4f mm\n', MSD);
 ---
 
 ## **Step 3: Compute RMS for Mega Texture**
-We use a **band-pass filter** between relevant wavelengths (i.e. 50 mm and 500 mm).
+We use a **band-pass filter** between relevant wavelengths (50 mm and 500 mm).
 
 ```matlab
 % Define cutoff frequencies
@@ -100,7 +103,7 @@ i_segment_1m = ProfileData.Distance_m >= 0 & ProfileData.Distance_m < 1;
 rms_mega = rms(megaProfile(i_segment_1m));
 fprintf('RMS of Mega Texture: %.3f mm\n', rms_mega);
 ```
-### Optional plot for mega texture data. 
+### Optional plot for mega texture data 
 ```matlab
 % Plot filtered data for 1 m segment
 figure;
